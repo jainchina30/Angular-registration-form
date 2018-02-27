@@ -1,13 +1,17 @@
-<form (submit)="loginUser($event)">
-  <div class="input">
+<form [formGroup]="userForm" (submit)="loginUser(userForm.value)" novalidate>
+  <div class="input form-group" [ngClass]="{'has-error':!userForm.controls['userName'].valid}">
     <label>Username</label>
-    <input class="username" type="text">
+    <input id="username" placeholder="User Name" class="username form-control" type="text" 
+    formControlName="userName" required/>
   </div>
-  <div class="input">
+  <div class="input form-group" [ngClass]="{'has-error':!userForm.controls['password'].valid}">
     <label>Password</label>
-    <input class="password" type="password">
+    <input id="password" placeholder="Password" class="password form-control" type="password" 
+    formControlName="password" required/>
   </div>
-  <div class="input">
-    <input type="submit" value="Login">
+  
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Submit</button>
+      <!-- [disabled]="!userForm.valid" -->
   </div>
 </form>

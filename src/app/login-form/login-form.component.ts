@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import {FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
@@ -7,22 +9,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginFormComponent implements OnInit {
 
-  constructor() { }
+  userForm : FormGroup;
 
-  ngOnInit() {
+  constructor(fb: FormBuilder) {
+    this.userForm = fb.group({
+      'userName' : [null, Validators.compose([Validators.required,Validators.minLength(5),
+        Validators.maxLength(15)])],
+      'password': [null, Validators.compose([Validators.required,Validators.minLength(5),
+        Validators.maxLength(15)])]
+    })
+   }
+
+  ngOnInit() { 
   }
 
-  loginUser(e) {
-    console.log("here");
-    e.preventDefault();
-    console.log(e);
-    var username = e.target.elements[0].value;
-    var password = e.target.elements[1].value;
-    console.log( username,password);
-    return false;
-    // if(username == 'admin' && password == 'admin'){
+  loginUser(value: any) {
+    console.log(value);
+
+    console.log(`Login ${this.userForm.value}`);
+    if (this.userForm.valid) {
+
+    }
+
+   
+
+    //  if(username == 'admin' && password == 'admin'){
       
-    // }
+    //  }
   }
 
 }
